@@ -461,3 +461,50 @@ VITE_API_URL=http://localhost:8000
 - Code with high complexity
 - Code without tests
 - Well-written code (positive case)
+
+---
+
+## Success Criteria
+
+### MVP Complete When:
+✅ Can paste code and click analyze
+✅ Returns conversational summary
+✅ Identifies security issues
+✅ Identifies style issues
+✅ Identifies complexity problems
+✅ All 9 tools working
+✅ Frontend displays results clearly
+✅ Deployed and accessible
+
+### Stretch Goals:
+- GitHub URL input
+- Inline code annotations
+- Severity filtering
+- Export report as markdown
+- Compare before/after fixes
+
+---
+
+## Common Pitfalls to Avoid
+
+❌ Making tools too complex initially - start simple
+❌ Trying to analyze 10,000 line files - enforce limits
+❌ Not handling edge cases - empty code, weird syntax
+❌ Slow LLM calls - use fast model (Haiku for tools, Sonnet for synthesis)
+❌ Poor error messages - be specific about what went wrong
+❌ Overly technical output - make it conversational and helpful
+
+---
+
+## Next Steps
+
+1. Set up project structure
+2. Install dependencies
+3. Build backend skeleton
+4. Implement first tool (security)
+5. Test it works end-to-end
+6. Add remaining tools incrementally
+7. Build frontend
+8. Polish and deploy
+
+**Focus on getting one tool working perfectly first, then add the rest!**
