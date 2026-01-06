@@ -1,0 +1,17 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# LangGraph & LangChain (compatible versions)
+langgraph
+langchain
+langchain-openai
+langchain-core
+
+# OpenAI API
+openai
+
+# Utilities
+pydantic
+python-dotenv
