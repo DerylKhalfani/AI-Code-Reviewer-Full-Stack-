@@ -1,17 +1,18 @@
 # Defines the data structure that flows through the LangGraph pipeline
 
 from typing import TypedDict, List, Optional
+from pydantic import BaseModel
 
 # Telling Python what keys exists and what type each value is
 
-class Issue(TypedDict):
+class Issue(BaseModel):
     type: str
     severity: str
     message: str
     line_number: Optional[int]
     suggestion: Optional[str]
 
-class AgentState(TypedDict):
+class AgentState(BaseModel):
     # Input Section
     code: str
     language: str
