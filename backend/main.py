@@ -48,7 +48,7 @@ def analyze_code(request: CodeRequest):
     if not code.strip():
         raise HTTPException(status_code=400, detail='Code cannot be empty')
     
-    lines = code.split('\n').len()
+    lines = len(code.split('\n'))
     if lines >= 2000:
         raise HTTPException(status_code=400, detail='Line number exceeded')
     
