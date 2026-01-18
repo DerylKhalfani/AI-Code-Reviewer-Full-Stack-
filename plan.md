@@ -1,6 +1,6 @@
 # AI Code Review Agent - Plan
 
-**Last Updated:** 2026-01-13
+**Last Updated:** 2026-01-18
 
 ---
 
@@ -11,15 +11,16 @@
 ### Done
 - FastAPI skeleton with /api/analyze endpoint
 - AgentState model (state.py)
-- Security tool (partial - needs Claude API switch)
+- tools.py
+- nodes.py 
+- graph.py
+- connected graph.py with main.py
 
 ### Working On
-- 
+- tools
 
 ### Next
-- Build graph.py (LangGraph StateGraph with 10 nodes)
-- Build nodes.py (node functions)
-- Connect main.py to graph
+-
 - Frontend (React + Monaco Editor)
 
 ---
@@ -40,7 +41,7 @@
 
 ## Known Issues
 
-3. graph.py and nodes.py are empty
+LLM prompt in tools
 
 ---
 

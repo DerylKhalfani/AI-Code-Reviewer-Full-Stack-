@@ -5,6 +5,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from agent.graph import graph_app
+from agent.state import *
 
 load_dotenv() 
 api_key = os.getenv("OPENAI_API_KEY")
@@ -58,22 +60,45 @@ def analyze_code(request: CodeRequest):
 
     
     # Calling langgraph pipeline
+    initial_state = AgentState(
+        code = code,
+        language = language,
+        style_issues = [],
+        security_issues = [],
+        best_practices_issues = [],
+        test_coverage_issues = [],
+        performance_issues = [],
+        accessibility_issues = [],
+        dependency_issues = [],
+        documentation_issues = [],
+        complexity_issues = [],
 
+        all_issues = [],
+        summary = ""
+    )
+
+    # Running the graph
+    final_state = graph_app.invoke(initial_state)
+
+    summary = final_state.summary
+    issues = final_state.all_issues
+    metrics = {'total_issues': len(issues),
+               'critical': 0,
+               'high': 0,
+               'medium': 0,
+               'low': 0}
     
-    # Formatting and returning
-    # dummy for now
-    response = {
-        'summary': 'Analysis complete! No issues',
-        'issues': [],
-        'metrics': {
-            'total_issues': 0,
-            'critical': 0,
-            'high': 0,
-            'medium': 0,
-            'low': 0
-        }
-    }
+    for issue in issues:
+        severity = issue.severity.lower()
 
-    return response
+        if severity in metrics:
+            metrics[severity] += 1
+
+    return CodeResponse(
+        summary = summary,
+        issues = [issue.dict() for issue in issues],
+        metrics = metrics
+    )
+        
 
     

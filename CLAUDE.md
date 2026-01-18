@@ -1,6 +1,3 @@
-
-Always Keep the code implementation simple. Don't add abstractions I didn't ask for. One file if possible.
-
 # Project Context for Claude Code
 
 ## Project: AI Code Review Agent
@@ -128,6 +125,7 @@ Return JSON: is_issue, severity, message, suggestion"""
 - Point out pitfalls
 - Ask clarifying questions
 - Let human implement after examples
+- Always Keep the code implementation simple. Don't add abstractions I didn't ask for. One file if possible.
 
 **Decisions already made:**
 ✅ LangGraph (not basic LangChain)

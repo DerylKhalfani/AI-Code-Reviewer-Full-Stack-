@@ -35,11 +35,31 @@ def analyze_security_tool(code: str, language: str) -> List[Issue]:
             # line number
             line_number = code[:match.start()].count('\n') + 1
 
+            snippet = match.group(0)
+
             response = client.beta.chat.completions.parse(
             model='gpt-5-nano',
             messages=[
-                {'role':'system', 'content': 'You are a security expert.'},
-                {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
+                {'role':'system', 'content': 'You are a security expert'},
+                {'role':'user', 'content': 
+                f"""
+                Analyze this {language} code for security vulnerabilities.   
+                Code: {snippet}                                 
+                Line: {line_number}                             
+                                                                
+                Return JSON with:                               
+                - type: "security"                              
+                - severity: MUST be exactly one of "critical", "high", "medium", or "low"                      
+                - message: description                          
+                - line_number: {line_number}                    
+                - suggestion: how to fix                        
+                                                                
+                Severity guidelines:                            
+                - critical: security vulnerabilities, data loss risks                                           
+                - high: bugs that break functionality           
+                - medium: bad practices, performance issues     
+                - low: style issues, minor improvements         
+                """}
             ],
             response_format = Issue, # json format
             )
@@ -93,7 +113,7 @@ def analyze_style_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
                 model = 'gpt-5-nano',
                 messages = [
-                    {'role':'system', 'content': 'You are a style expert'},
+                    {'role':'system', 'content': 'You are a style expert, that classifies severity into 3 class: critical, minor, safe'},
                     {'role':'user', 'content':f'Analyze this {language} code for style issues: \n{snippet}\nLine: {line_number}\nIs this a style violation? If yes, suggest how to fix it.'}
                 ],
                 response_format=Issue
@@ -144,7 +164,7 @@ def analyze_complexity_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
             model='gpt-5-nano',
             messages=[
-                {'role':'system', 'content': 'You are a complexity expert.'},
+                {'role':'system', 'content': 'You are a complexity expert, that classifies severity into 3 class: critical, minor, safe'},
                 {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
             ],
             response_format = Issue, # json format
@@ -205,7 +225,7 @@ def analyze_best_practices_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
                 model='gpt-5-nano',
                 messages=[
-                {'role':'system', 'content': 'You are a best practices expert.'},
+                {'role':'system', 'content': 'You are a best practices expert, that classifies severity into 3 class: critical, minor, safe'},
                 {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
             ],
             response_format = Issue, # json format
@@ -252,7 +272,7 @@ def analyze_test_coverage_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
                 model='gpt-5-nano',
                 messages=[
-                {'role':'system', 'content': 'You are a test coverage expert.'},
+                {'role':'system', 'content': 'You are a test coverage expert, that classifies severity into 3 class: critical, minor, safe'},
                 {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
             ],
             response_format = Issue, # json format
@@ -306,7 +326,7 @@ def analyze_performance_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
                 model='gpt-5-nano',
                 messages=[
-                {'role':'system', 'content': 'You are a performance expert.'},
+                {'role':'system', 'content': 'You are a performance expert, that classifies severity into 3 class: critical, minor, safe'},
                 {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
             ],
             response_format = Issue, # json format
@@ -361,7 +381,7 @@ def analyze_accessibility_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
                 model='gpt-5-nano',
                 messages=[
-                {'role':'system', 'content': 'You are a accessibility expert.'},
+                {'role':'system', 'content': 'You are a accessibility expert, that classifies severity into 3 class: critical, minor, safe'},
                 {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
             ],
             response_format = Issue, # json format
@@ -409,7 +429,7 @@ def analyze_dependency_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
                 model='gpt-5-nano',
                 messages=[
-                {'role':'system', 'content': 'You are a dependency expert.'},
+                {'role':'system', 'content': 'You are a dependency expert, that classifies severity into 3 class: critical, minor, safe'},
                 {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
             ],
             response_format = Issue, # json format
@@ -461,7 +481,7 @@ def analyze_documentation_tool(code: str, language: str) -> List[Issue]:
             response = client.beta.chat.completions.parse(
                 model='gpt-5-nano',
                 messages=[
-                {'role':'system', 'content': 'You are a documentation expert.'},
+                {'role':'system', 'content': 'You are a documentation expert, that classifies severity into 3 class: critical, minor, safe'},
                 {'role':'user', 'content': f'Please analyze this code: \n{match} with its line number: {line_number}.'}
             ],
             response_format = Issue, # json format

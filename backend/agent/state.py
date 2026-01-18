@@ -2,12 +2,21 @@
 
 from typing import TypedDict, List, Optional
 from pydantic import BaseModel
+from enum import Enum   
 
 # Telling Python what keys exists and what type each value is
 
+                        
+                                                  
+class Severity(str, Enum):                      
+    CRITICAL = "critical"                       
+    HIGH = "high"                               
+    MEDIUM = "medium"                           
+    LOW = "low"
+
 class Issue(BaseModel):
     type: str
-    severity: str
+    severity: Severity # Forces 4 values
     message: str
     line_number: Optional[int]
     suggestion: Optional[str]
