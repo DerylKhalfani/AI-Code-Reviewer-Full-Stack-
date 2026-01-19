@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, START, END
-from state import *
-from nodes import *
+from .state import *
+from .nodes import *
 
 # initializing state graph
 graph = StateGraph(AgentState)

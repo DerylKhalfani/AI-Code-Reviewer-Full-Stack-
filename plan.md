@@ -1,50 +1,96 @@
 # AI Code Review Agent - Plan
 
-**Last Updated:** 2026-01-18
+**Last Updated:** 2026-01-19
 
 ---
 
 ## Current Status
 
-**Phase:** Building backend tools and LangGraph pipeline
+**Phase:** Building Frontend
 
-### Done
-- FastAPI skeleton with /api/analyze endpoint
+### Done - Backend ✅
+- FastAPI with /api/analyze endpoint working
 - AgentState model (state.py)
-- tools.py
-- nodes.py 
-- graph.py
-- connected graph.py with main.py
+- 9 analysis tools (tools.py)
+- 9 nodes + synthesis node (nodes.py)
+- LangGraph pipeline (graph.py)
+- Backend tested and working
 
 ### Working On
-- tools
-
-### Next
--
-- Frontend (React + Monaco Editor)
+- Frontend components
 
 ---
 
-## 9 Tools Checklist
+## Frontend Plan (Simple)
 
-1. [ ] Security already fixed
-2. [ ] Style already fixed
-3. [ ] Complexity fixed
-4. [ ] Best Practices fixed
-5. [ ] Test Coverage fixed
-6. [ ] Performance fixed
-7. [ ] Accessibility fixed
-8. [ ] Dependency fixed
-9. [ ] Documentation fixed
+### Step 1: Main Page (app/page.tsx)
+- [ ] Replace default Next.js page
+- [ ] Add state management (code, language, loading, results, error)
+- [ ] Create handleAnalyze function (POST to API)
+- [ ] Build basic layout
+
+### Step 2: CodeInput Component (components/CodeInput.tsx)
+- [ ] Import Monaco Editor (dynamic, no SSR)
+- [ ] Props: value, onChange, language
+- [ ] Set height ~400px
+- [ ] Enable line numbers + syntax highlighting
+
+### Step 3: LanguageSelector (components/LanguageSelector.tsx)
+- [ ] Simple dropdown
+- [ ] Props: value, onChange
+- [ ] Options: python, javascript, typescript, java, go, etc.
+
+### Step 4: ResultsDisplay (components/ResultsDisplays.tsx)
+- [ ] Show metrics cards (total, critical, high, medium, low)
+- [ ] Show summary section
+- [ ] Show issues list (grouped by severity or type)
+- [ ] Add loading state
+- [ ] Add empty state
+
+### Step 5: Polish
+- [ ] Error handling (empty code, >2000 lines, API errors)
+- [ ] Styling with Tailwind
+- [ ] Test end-to-end with backend
 
 ---
 
-## Known Issues
+## API Contract
 
-LLM prompt in tools
+**Request to:** `POST http://localhost:8000/api/analyze`
+```json
+{
+  "code": "string",
+  "language": "python"
+}
+```
+
+**Response:**
+```json
+{
+  "summary": "string",
+  "issues": [
+    {
+      "type": "security",
+      "severity": "critical|high|medium|low",
+      "message": "string",
+      "line_number": 10,
+      "suggestion": "string"
+    }
+  ],
+  "metrics": {
+    "total_issues": 5,
+    "critical": 1,
+    "high": 2,
+    "medium": 1,
+    "low": 1
+  }
+}
+```
 
 ---
 
 ## Notes
-- 2000 line limit
-- Auto-detect language if not provided
+- Backend runs on port 8000
+- Frontend (Next.js) on port 3000
+- Analysis takes 30-60 seconds (9 tools sequentially)
+- Max 2000 lines of code

@@ -43,6 +43,7 @@ def health_check():
 @app.post('/api/analyze')
 def analyze_code(request: CodeRequest):
 
+    # Input
     code = request.code
     language = request.language
     # Validate input
@@ -80,14 +81,15 @@ def analyze_code(request: CodeRequest):
     # Running the graph
     final_state = graph_app.invoke(initial_state)
 
-    summary = final_state.summary
-    issues = final_state.all_issues
+    # LangGraph returns a dict, not AgentState object
+    summary = final_state["summary"]
+    issues = final_state["all_issues"]
     metrics = {'total_issues': len(issues),
                'critical': 0,
                'high': 0,
                'medium': 0,
                'low': 0}
-    
+
     for issue in issues:
         severity = issue.severity.lower()
 

@@ -1,62 +1,54 @@
 # This file is for adding nodes for all tools and one to sum them up
 
-from state import *
+import os
+from .state import *
 from typing import List
 from tools.tools import * # importing tools
 from openai import OpenAI
 
 def security_node(state: AgentState) -> AgentState:
     issues = analyze_security_tool(state.code, state.language)
-    state.security_issues: List[Issue] = issues # update 
-
+    state.security_issues = issues  # Fixed: removed type annotation
     return state
 
 def style_node(state: AgentState) -> AgentState:
     issues = analyze_style_tool(state.code, state.language)
-    state.style_issues: List[Issue] = issues # update 
-
+    state.style_issues = issues  # Fixed: removed type annotation
     return state
 
 def complexity_node(state: AgentState) -> AgentState:
     issues = analyze_complexity_tool(state.code, state.language)
-    state.complexity_issues: List[Issue] = issues # update 
-
+    state.complexity_issues = issues  # Fixed: removed type annotation
     return state
 
 def best_practices_node(state: AgentState) -> AgentState:
     issues = analyze_best_practices_tool(state.code, state.language)
-    state.best_practices_issues: List[Issue] = issues # update 
-
+    state.best_practices_issues = issues  # Fixed: removed type annotation
     return state
 
 def test_coverage_node(state: AgentState) -> AgentState:
     issues = analyze_test_coverage_tool(state.code, state.language)
-    state.test_coverage_issues: List[Issue] = issues # update 
-
+    state.test_coverage_issues = issues  # Fixed: removed type annotation
     return state
 
 def performance_node(state: AgentState) -> AgentState:
     issues = analyze_performance_tool(state.code, state.language)
-    state.performance_issues: List[Issue] = issues # update 
-
+    state.performance_issues = issues  # Fixed: removed type annotation
     return state
 
 def dependency_node(state: AgentState) -> AgentState:
     issues = analyze_dependency_tool(state.code, state.language)
-    state.dependency_issues: List[Issue] = issues # update 
-
+    state.dependency_issues = issues  # Fixed: removed type annotation
     return state
 
 def documentation_node(state: AgentState) -> AgentState:
     issues = analyze_documentation_tool(state.code, state.language)
-    state.documentation_issues: List[Issue] = issues # update 
-
+    state.documentation_issues = issues  # Fixed: removed type annotation
     return state
 
 def accessibility_node(state: AgentState) -> AgentState:
     issues = analyze_accessibility_tool(state.code, state.language)
-    state.accessibility_issues: List[Issue] = issues # update 
-
+    state.accessibility_issues = issues  # Fixed: removed type annotation
     return state
 
 def synthesis_node(state: AgentState) -> AgentState:
